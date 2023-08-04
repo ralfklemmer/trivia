@@ -32,37 +32,40 @@ string Game::createRockQuestion(int index) {
 }
 
 bool Game::add(string playerName) {
-    players.push_back(playerName);
+    Player player(playerName);
+
+    players2.push_back(player);
+
     places[howManyPlayers()] = 0;
     purses[howManyPlayers()] = 0;
     inPenaltyBox[howManyPlayers()] = false;
 
     cout << playerName << " was added" << endl;
-    cout << "They are player number " << players.size() << endl;
+    cout << "They are player number " << players2.size() << endl;
     return true;
 }
 
 int Game::howManyPlayers() {
-    return players.size();
+    return players2.size();
 }
 
 void Game::roll(int roll) {
-    cout << players[currentPlayer] << " is the current player" << endl;
+    cout << players2[currentPlayer].name << " is the current player" << endl;
     cout << "They have rolled a " << roll << endl;
 
     if (inPenaltyBox[currentPlayer]) {
         if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
-            cout << players[currentPlayer] << " is getting out of the penalty box" << endl;
+            cout << players2[currentPlayer].name << " is getting out of the penalty box" << endl;
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-            cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << endl;
+            cout << players2[currentPlayer].name << "'s new location is " << places[currentPlayer] << endl;
             cout << "The category is " << currentCategory() << endl;
             askQuestion();
         } else {
-            cout << players[currentPlayer] << " is not getting out of the penalty box" << endl;
+            cout << players2[currentPlayer].name << " is not getting out of the penalty box" << endl;
             isGettingOutOfPenaltyBox = false;
         }
 
@@ -71,7 +74,7 @@ void Game::roll(int roll) {
         places[currentPlayer] = places[currentPlayer] + roll;
         if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-        cout << players[currentPlayer] << "'s new location is " << places[currentPlayer] << endl;
+        cout << players2[currentPlayer].name << "'s new location is " << places[currentPlayer] << endl;
         cout << "The category is " << currentCategory() << endl;
         askQuestion();
     }
@@ -116,19 +119,19 @@ bool Game::wasCorrectlyAnswered() {
         if (isGettingOutOfPenaltyBox) {
             cout << "Answer was correct!!!!" << endl;
             purses[currentPlayer]++;
-            cout << players[currentPlayer]
+            cout << players2[currentPlayer].name
                  << " now has "
                  << purses[currentPlayer]
                  << " Gold Coins." << endl;
 
             bool winner = didPlayerWin();
             currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            if (currentPlayer == players2.size()) currentPlayer = 0;
 
             return winner;
         } else {
             currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            if (currentPlayer == players2.size()) currentPlayer = 0;
             return true;
         }
 
@@ -137,14 +140,14 @@ bool Game::wasCorrectlyAnswered() {
 
         cout << "Answer was corrent!!!!" << endl;
         purses[currentPlayer]++;
-        cout << players[currentPlayer]
+        cout << players2[currentPlayer].name
              << " now has "
              << purses[currentPlayer]
              << " Gold Coins." << endl;
 
         bool winner = didPlayerWin();
         currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        if (currentPlayer == players2.size()) currentPlayer = 0;
 
         return winner;
     }
@@ -152,11 +155,11 @@ bool Game::wasCorrectlyAnswered() {
 
 bool Game::wrongAnswer() {
     cout << "Question was incorrectly answered" << endl;
-    cout << players[currentPlayer] + " was sent to the penalty box" << endl;
+    cout << players2[currentPlayer].name + " was sent to the penalty box" << endl;
     inPenaltyBox[currentPlayer] = true;
 
     currentPlayer++;
-    if (currentPlayer == players.size()) {
+    if (currentPlayer == players2.size()) {
         currentPlayer = 0;
     }
     return true;
