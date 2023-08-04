@@ -1,8 +1,3 @@
-Debug
-.project
-.cproject
-cmake-build-debug
-
 # Created by https://www.toptal.com/developers/gitignore/api/clion+all,macos,windows,git,cmake,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=clion+all,macos,windows,git,cmake,linux
 
@@ -201,4 +196,15 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/clion+all,macos,windows,git,cmake,linux
-/**/.DS_Store
+
+
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+/Users/ralfklemmer/repo/ids/katas/trivia/C++/cmake-build-debug
