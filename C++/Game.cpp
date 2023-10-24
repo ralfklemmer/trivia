@@ -32,10 +32,6 @@ string Game::createRockQuestion(int index) {
     return indexStr;
 }
 
-bool Game::isPlayable() {
-    return (howManyPlayers() >= 2);
-}
-
 bool Game::add(string playerName) {
     players.push_back(playerName);
     places[howManyPlayers()] = 0;
