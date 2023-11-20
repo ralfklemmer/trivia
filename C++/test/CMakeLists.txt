@@ -1,23 +1,19 @@
-# test/CMakeLists.txt
-
-# Add test files in this directory to an executable
-#add_executable(kata_trivia_tests main_test.cpp
-#        main.cpp
-#        catch2_starter_main.cpp)
-
-# Link with ApprovalTests and Catch2
-#target_link_libraries(kata_trivia_tests kata_trivia_lib ApprovalTests::ApprovalTests Catch2::Catch2)
-
-# Set C++ standard if required (C++11 in this case)
-# target_compile_features(kata_trivia_tests PRIVATE cxx_std_11)
-
-
-set(EXE_NAME kata_trivia)
-set(CMAKE_CXX_STANDARD 11)
-add_executable(${EXE_NAME}
-        main_test.cpp
-        catch2_starter_main.cpp
+add_executable(kata_trivia
+        game_test.cpp
 )
-target_link_libraries(${EXE_NAME} ApprovalTests::ApprovalTests Catch2::Catch2 kata_trivia_lib)
+target_link_libraries(kata_trivia Catch2::Catch2 kata_trivia_lib)
 
-add_test(NAME ${EXE_NAME} COMMAND ${EXE_NAME})
+if (WIN32)
+    add_custom_target(
+            kata_trivia_copy_dependencies
+            COMMAND
+            ${CMAKE_COMMAND} -E copy_if_different
+            "$<TARGET_FILE:kata_trivia_lib>"
+            "${CMAKE_CURRENT_BINARY_DIR}"
+
+            DEPENDS kata_trivia_lib)
+
+    add_dependencies(
+            kata_trivia
+            kata_trivia_copy_dependencies)
+endif()
