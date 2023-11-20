@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+
 using namespace std;
 
 #ifndef GAME_H_

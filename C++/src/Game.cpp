@@ -1,6 +1,5 @@
 ﻿#include "Game.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
 #include <iostream>
 #include <sstream>
 
